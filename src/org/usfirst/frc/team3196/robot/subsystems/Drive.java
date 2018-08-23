@@ -18,6 +18,8 @@ public class Drive extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
+	public WPI_TalonSRX climber = new WPI_TalonSRX(8);
+	
 	public WPI_TalonSRX frontRight = new WPI_TalonSRX(4);
 	public WPI_TalonSRX rearRight = new WPI_TalonSRX(2);
 	public SpeedControllerGroup right = new SpeedControllerGroup(frontRight, rearRight);
@@ -48,7 +50,7 @@ public class Drive extends Subsystem {
 	}
 	
 	public double getEncoderRight() {
-		return Robot.ssDrive.rearRight.getSelectedSensorPosition(0)-_encoderOffsetRight;
+		return -(Robot.ssDrive.rearRight.getSelectedSensorPosition(0)+_encoderOffsetRight);
 	}
 
     public void initDefaultCommand() {

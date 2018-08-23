@@ -8,36 +8,30 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class DriveWithEncoder extends Command {
+public class TurnWithGyro extends Command {
 
-	long encoderValLeft = 0;
-	long encoderValRight = 0;
+	long degrees = 0;
 	
-    public DriveWithEncoder(long valLeft, long valRight) {
+    public TurnWithGyro(long degreesToTurn) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.ssDrive);
     	
-    	encoderValLeft = valLeft;
-    	encoderValRight = valRight;
+    	degrees = degreesToTurn;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.ssDrive.resetEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ssDrive.drive.arcadeDrive(0.7, 0);
-    	
-    	SmartDashboard.putNumber("Left Encoder", Robot.ssDrive.getEncoderLeft());
-    	SmartDashboard.putNumber("Right Encoder", Robot.ssDrive.getEncoderRight());
+    	Robot.ssDrive.drive.tankDrive(0.5, -0.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(Robot.ssDrive.getEncoderLeft() >= encoderValLeft || Robot.ssDrive.getEncoderRight() >= encoderValRight) return true;
+    	//if(Robot.ssDrive.getEncoderLeft() >= encoderValLeft || Robot.ssDrive.getEncoderRight() >= encoderValRight) return true;
         return false;
     }
 

@@ -50,6 +50,9 @@ public class Robot extends TimedRobot {
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		m_chooser.addDefault("My Auto", new BasicAuto());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		ssDrive.resetEncoders();
+		//CameraServer.getInstance().startAutomaticCapture();
 		//CameraServer.getInstance().addAxisCamera("http://axis-camera.local/mjpg/video.mjpg");
 	}
 
@@ -81,7 +84,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+		ssDrive.resetEncoders();
+		//m_autonomousCommand = m_chooser.getSelected();
+		m_autonomousCommand = new BasicAuto();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

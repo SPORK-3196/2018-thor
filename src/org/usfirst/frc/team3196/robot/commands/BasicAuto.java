@@ -29,6 +29,7 @@ public class BasicAuto extends CommandGroup {
     	
     	//requires(Robot.ssDrive);
     	
-    	addSequential(new DriveWithEncoder(1000,1000));
+    	//addSequential(new DriveWithEncoder(10000,10000));
+    	addSequential(new TurnWithGyro(0));
     }
 }

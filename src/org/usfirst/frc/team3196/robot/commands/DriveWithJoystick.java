@@ -37,10 +37,9 @@ public class DriveWithJoystick extends Command {
     	Robot.ssDrive.drive.arcadeDrive(driveSpeed, driveRot);
     	
     	// Read encoders and print to dashboard
-    	SmartDashboard.putNumber("frontLeftEncoder", Robot.ssDrive.frontLeft.getSelectedSensorPosition(0));
-    	SmartDashboard.putNumber("rearLeftEncoder", Robot.ssDrive.rearLeft.getSelectedSensorPosition(0));
-    	SmartDashboard.putNumber("frontRightEncoder", Robot.ssDrive.frontRight.getSelectedSensorPosition(0));
-    	SmartDashboard.putNumber("rearRightEncoder", Robot.ssDrive.rearRight.getSelectedSensorPosition(0));
+    	SmartDashboard.putNumber("Left Encoder", Robot.ssDrive.getEncoderLeft());
+    	SmartDashboard.putNumber("Right Encoder", Robot.ssDrive.getEncoderRight());
+    	//SmartDashboard.putNumber("rearRightEncoder", Robot.ssDrive.rearRight.getSelectedSensorPosition(0));
     }
 
     // Make this return true when this Command no longer needs to run execute()
