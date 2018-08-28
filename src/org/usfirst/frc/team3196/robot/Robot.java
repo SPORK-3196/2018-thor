@@ -54,6 +54,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("My Auto", new BasicAuto());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
+		ssSensors.resetGyro();
 		ssDrive.resetEncoders();
 		//CameraServer.getInstance().startAutomaticCapture();
 		//CameraServer.getInstance().addAxisCamera("http://axis-camera.local/mjpg/video.mjpg");

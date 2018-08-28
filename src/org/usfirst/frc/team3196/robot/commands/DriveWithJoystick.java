@@ -43,7 +43,9 @@ public class DriveWithJoystick extends Command {
     	
     	
     	// Read gyro and print to dashboard
-    	SmartDashboard.putNumber("Gyro", Robot.ssSensors.readGyro());
+    	SmartDashboard.putNumber("GyroX", Robot.ssSensors.gyro.getAngleX());
+    	SmartDashboard.putNumber("GyroY", Robot.ssSensors.gyro.getAngleY());
+    	SmartDashboard.putNumber("GyroZ", Robot.ssSensors.gyro.getAngleZ());
     }
 
     // Make this return true when this Command no longer needs to run execute()
