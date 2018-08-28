@@ -15,8 +15,8 @@ public class Sensors extends Subsystem {
 		
 	}
 	
-	public void readGyro() {
-		
+	public double readGyro() {
+		return 0;
 	}
 
     public void initDefaultCommand() {

@@ -20,6 +20,7 @@ import org.usfirst.frc.team3196.robot.commands.ExampleCommand;
 import org.usfirst.frc.team3196.robot.subsystems.Drive;
 import org.usfirst.frc.team3196.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team3196.robot.subsystems.Intake;
+import org.usfirst.frc.team3196.robot.subsystems.Sensors;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,6 +32,8 @@ import org.usfirst.frc.team3196.robot.subsystems.Intake;
 public class Robot extends TimedRobot {
 	public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
 	public static OI m_oi;
+	
+	public static Sensors ssSensors = new Sensors();
 	
 	public static Intake ssIntake = new Intake();
 	public static Drive ssDrive = new Drive();

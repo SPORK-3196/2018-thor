@@ -40,6 +40,10 @@ public class DriveWithJoystick extends Command {
     	SmartDashboard.putNumber("Left Encoder", Robot.ssDrive.getEncoderLeft());
     	SmartDashboard.putNumber("Right Encoder", Robot.ssDrive.getEncoderRight());
     	//SmartDashboard.putNumber("rearRightEncoder", Robot.ssDrive.rearRight.getSelectedSensorPosition(0));
+    	
+    	
+    	// Read gyro and print to dashboard
+    	SmartDashboard.putNumber("Gyro", Robot.ssSensors.readGyro());
     }
 
     // Make this return true when this Command no longer needs to run execute()
