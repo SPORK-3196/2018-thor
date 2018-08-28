@@ -50,7 +50,6 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	
 	public Joystick jsDrive = new Joystick(0);
-	
 	public Button jsDrive_A = new JoystickButton(jsDrive, 1);
 	public Button jsDrive_B = new JoystickButton(jsDrive, 2);
 	public Button jsDrive_X = new JoystickButton(jsDrive, 3);
@@ -62,8 +61,8 @@ public class OI {
 	public Button jsDrive_LC = new JoystickButton(jsDrive, 9);
 	public Button jsDrive_RC = new JoystickButton(jsDrive, 10);
 	
-	
-	public Joystick jsMech = new Joystick(2);
+	/*
+	public Joystick jsMech = new Joystick(1);
 	public Button jsMech_A = new JoystickButton(jsMech, 1);
 	public Button jsMech_B = new JoystickButton(jsMech, 2);
 	public Button jsMech_X = new JoystickButton(jsMech, 3);
@@ -74,11 +73,11 @@ public class OI {
 	public Button jsMech_START = new JoystickButton(jsMech, 8);
 	public Button jsMech_LC = new JoystickButton(jsMech, 9);
 	public Button jsMech_RC = new JoystickButton(jsMech, 10);
-	
+	*/
 	
 	public OI() {
-		jsMech_A.whileHeld(new IntakeIn());
-		jsMech_B.whileHeld(new IntakeOut());
+		//jsMech_A.whileHeld(new IntakeIn());
+		//jsMech_B.whileHeld(new IntakeOut());
 		jsDrive_A.whileHeld(new ResetGyro());
 	}
 }

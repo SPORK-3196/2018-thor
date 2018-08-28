@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
 	public static Sensors ssSensors = new Sensors();
 	
 	public static Intake ssIntake = new Intake();
-	public static Drive ssDrive = new Drive();
+	public static Drive ssDrive = new Drive(1, 0, 0);
 	
 	public static Joystick jsDrive = new Joystick(0);
 
@@ -56,6 +56,14 @@ public class Robot extends TimedRobot {
 		
 		ssSensors.resetGyro();
 		ssDrive.resetEncoders();
+
+		ssDrive.getPIDController().setP(SmartDashboard.getNumber("Drive_P", 1));
+		ssDrive.getPIDController().setI(SmartDashboard.getNumber("Drive_I", 0));
+		ssDrive.getPIDController().setD(SmartDashboard.getNumber("Drive_D", 0));
+		
+		/*SmartDashboard.putNumber("Drive_P", ssDrive.getPIDController().getP());
+		SmartDashboard.putNumber("Drive_I", ssDrive.getPIDController().getI());
+		SmartDashboard.putNumber("Drive_D", ssDrive.getPIDController().getD());*/
 		//CameraServer.getInstance().startAutomaticCapture();
 		//CameraServer.getInstance().addAxisCamera("http://axis-camera.local/mjpg/video.mjpg");
 	}
@@ -88,9 +96,19 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		ssDrive.resetEncoders();
+    	Robot.ssDrive.resetEncoders();
+    	Robot.ssSensors.resetGyro();
+    	Robot.ssDrive.resetEncoders();
+    	
 		//m_autonomousCommand = m_chooser.getSelected();
 		m_autonomousCommand = new BasicAuto();
+		
+		System.out.print("Starting auto with ");
+		System.out.print(ssDrive.getPIDController().getP());
+		System.out.print(" ");
+		System.out.print(ssDrive.getPIDController().getI());
+		System.out.print(" ");
+		System.out.print(ssDrive.getPIDController().getD());
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -103,8 +121,6 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
-		
-		
 	}
 
 	/**
@@ -113,6 +129,15 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		
+		// Read drive encoders and print to dashboard
+    	SmartDashboard.putNumber("Left Encoder", Robot.ssDrive.getEncoderLeft());
+    	SmartDashboard.putNumber("Right Encoder", Robot.ssDrive.getEncoderRight());
+		
+		// Read Gyro and print to dashboard
+    	SmartDashboard.putNumber("GyroX", Robot.ssSensors.gyro.getAngleX());
+    	SmartDashboard.putNumber("GyroY", Robot.ssSensors.gyro.getAngleY());
+    	SmartDashboard.putNumber("GyroZ", Robot.ssSensors.gyro.getAngleZ());
 	}
 
 	@Override
@@ -124,6 +149,11 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		
+		System.out.println("Yo");
+		
+		ssDrive.resetEncoders();
+		ssDrive.disable();
 	}
 
 	/**
@@ -132,6 +162,15 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		// Read drive encoders and print to dashboard
+    	SmartDashboard.putNumber("Left Encoder", Robot.ssDrive.getEncoderLeft());
+    	SmartDashboard.putNumber("Right Encoder", Robot.ssDrive.getEncoderRight());
+		
+		// Read Gyro and print to dashboard
+    	SmartDashboard.putNumber("GyroX", Robot.ssSensors.gyro.getAngleX());
+    	SmartDashboard.putNumber("GyroY", Robot.ssSensors.gyro.getAngleY());
+    	SmartDashboard.putNumber("GyroZ", Robot.ssSensors.gyro.getAngleZ());
 	}
 
 	/**

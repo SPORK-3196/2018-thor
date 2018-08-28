@@ -3,16 +3,17 @@ package org.usfirst.frc.team3196.robot.subsystems;
 import org.usfirst.frc.team3196.robot.Robot;
 import org.usfirst.frc.team3196.robot.commands.DriveWithJoystick;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  *
  */
-public class Drive extends PIDSubsystem {
+public class DriveBackup extends Subsystem {
 
 	// Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -40,8 +41,8 @@ public class Drive extends PIDSubsystem {
 	}
 	
 	public void resetEncoders() {
-		_encoderOffsetLeft += getEncoderLeft();
-		_encoderOffsetRight += getEncoderRight();
+		_encoderOffsetLeft = getEncoderLeft();
+		_encoderOffsetRight = getEncoderRight();
 	}
 	
 	public double getEncoderLeft() {
@@ -51,35 +52,22 @@ public class Drive extends PIDSubsystem {
 	public double getEncoderRight() {
 		return -(Robot.ssDrive.rearRight.getSelectedSensorPosition(0)+_encoderOffsetRight);
 	}
-	
-    // Initialize your subsystem here
-    public Drive(double P, double I, double D) {
-        // Use these to get going:
-        // setSetpoint() -  Sets where the PID controller should move the system
-        //                  to
-        // enable() - Enables the PID controller.
-    	super(P,I,D);
-    	setOutputRange(-0.8, 0.8);
-    	disable();
-    }
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new DriveWithJoystick());
-    }
-
-    protected double returnPIDInput() {
-        // Return your input value for the PID loop
-        // e.g. a sensor, like a potentiometer:
-        // yourPot.getAverageVoltage() / kYourMaxVoltage;
-        return getEncoderRight();
-    }
-
-    protected void usePIDOutput(double output) {
-        // Use output to drive your system, like a motor
-        // e.g. yourMotor.set(output);
-    	double turn = (Robot.ssSensors.readGyro() > 0 ? -0.45 : 0.45);
-    	drive.arcadeDrive(output, turn);
+    	
+    	// Configure encoders
+    	Robot.ssDrive.frontLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+    	Robot.ssDrive.frontLeft.setSensorPhase(false);
+    	Robot.ssDrive.rearLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+    	Robot.ssDrive.rearLeft.setSensorPhase(false);
+    	Robot.ssDrive.frontRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+    	Robot.ssDrive.frontRight.setSensorPhase(false);
+    	Robot.ssDrive.rearRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+    	Robot.ssDrive.rearRight.setSensorPhase(false);
+    	
+    	//setDefaultCommand(new DriveWithJoystick());
     }
 }
+

@@ -35,17 +35,6 @@ public class DriveWithJoystick extends Command {
 		double driveSpeed = -Robot.jsDrive.getY(Hand.kLeft)*1;
 		double driveRot = Robot.jsDrive.getX(Hand.kLeft)*0.7;
     	Robot.ssDrive.drive.arcadeDrive(driveSpeed, driveRot);
-    	
-    	// Read encoders and print to dashboard
-    	SmartDashboard.putNumber("Left Encoder", Robot.ssDrive.getEncoderLeft());
-    	SmartDashboard.putNumber("Right Encoder", Robot.ssDrive.getEncoderRight());
-    	//SmartDashboard.putNumber("rearRightEncoder", Robot.ssDrive.rearRight.getSelectedSensorPosition(0));
-    	
-    	
-    	// Read gyro and print to dashboard
-    	SmartDashboard.putNumber("GyroX", Robot.ssSensors.gyro.getAngleX());
-    	SmartDashboard.putNumber("GyroY", Robot.ssSensors.gyro.getAngleY());
-    	SmartDashboard.putNumber("GyroZ", Robot.ssSensors.gyro.getAngleZ());
     }
 
     // Make this return true when this Command no longer needs to run execute()

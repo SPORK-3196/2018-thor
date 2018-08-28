@@ -10,40 +10,36 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveWithEncoder extends Command {
 
-	long encoderValLeft = 0;
-	long encoderValRight = 0;
+	long encoderDist = 0;
 	
-    public DriveWithEncoder(long valLeft, long valRight) {
+    public DriveWithEncoder(long dist) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.ssDrive);
+    	requires(Robot.ssSensors);
     	
-    	encoderValLeft = valLeft;
-    	encoderValRight = valRight;
+    	encoderDist = dist;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.ssDrive.resetEncoders();
+    	Robot.ssDrive.setSetpoint(encoderDist);
+    	Robot.ssDrive.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ssDrive.drive.arcadeDrive(0.7, 0);
-    	
-    	SmartDashboard.putNumber("Left Encoder", Robot.ssDrive.getEncoderLeft());
-    	SmartDashboard.putNumber("Right Encoder", Robot.ssDrive.getEncoderRight());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(Robot.ssDrive.getEncoderLeft() >= encoderValLeft || Robot.ssDrive.getEncoderRight() >= encoderValRight) return true;
         return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	Robot.ssDrive.stopMotors();
+    	Robot.ssDrive.disable();
     }
 
     // Called when another command which requires one or more of the same
