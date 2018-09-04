@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
 		ssSensors.resetGyro();
 		ssDrive.resetEncoders();
 
-		ssDrive.getPIDController().setP(SmartDashboard.getNumber("Drive_P", 1));
+		ssDrive.getPIDController().setP(SmartDashboard.getNumber("Drive_P", 0.0001));
 		ssDrive.getPIDController().setI(SmartDashboard.getNumber("Drive_I", 0));
 		ssDrive.getPIDController().setD(SmartDashboard.getNumber("Drive_D", 0));
 		
@@ -150,8 +150,6 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		
-		System.out.println("Yo");
-		
 		ssDrive.resetEncoders();
 		ssDrive.disable();
 	}
@@ -171,6 +169,8 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("GyroX", Robot.ssSensors.gyro.getAngleX());
     	SmartDashboard.putNumber("GyroY", Robot.ssSensors.gyro.getAngleY());
     	SmartDashboard.putNumber("GyroZ", Robot.ssSensors.gyro.getAngleZ());
+    	
+    	//System.out.println("Yo2");
 	}
 
 	/**

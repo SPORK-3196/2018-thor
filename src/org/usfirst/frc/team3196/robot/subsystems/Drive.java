@@ -42,6 +42,7 @@ public class Drive extends PIDSubsystem {
 	public void resetEncoders() {
 		_encoderOffsetLeft += getEncoderLeft();
 		_encoderOffsetRight += getEncoderRight();
+		System.out.println("Encoders reset");
 	}
 	
 	public double getEncoderLeft() {
@@ -79,7 +80,10 @@ public class Drive extends PIDSubsystem {
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
-    	double turn = (Robot.ssSensors.readGyro() > 0 ? -0.45 : 0.45);
+    	double turn = 0;
+    	if(Robot.ssSensors.readGyro() > 1) turn = -0.25;
+    	else if(Robot.ssSensors.readGyro() < -1) turn = 0.25;
+    	
     	drive.arcadeDrive(output, turn);
     }
 }
