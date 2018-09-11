@@ -20,6 +20,7 @@ import org.usfirst.frc.team3196.robot.commands.ExampleCommand;
 import org.usfirst.frc.team3196.robot.subsystems.Drive;
 import org.usfirst.frc.team3196.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team3196.robot.subsystems.Intake;
+import org.usfirst.frc.team3196.robot.subsystems.Lift;
 import org.usfirst.frc.team3196.robot.subsystems.Sensors;
 
 /**
@@ -35,10 +36,12 @@ public class Robot extends TimedRobot {
 	
 	public static Sensors ssSensors = new Sensors();
 	
-	public static Intake ssIntake = new Intake();
 	public static Drive ssDrive = new Drive(1, 0, 0);
-	
+	public static Lift ssLift = new Lift();
+	public static Intake ssIntake = new Intake();
+
 	public static Joystick jsDrive = new Joystick(0);
+	public static Joystick jsMech = new Joystick(1);
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -57,7 +60,7 @@ public class Robot extends TimedRobot {
 		ssSensors.resetGyro();
 		ssDrive.resetEncoders();
 
-		ssDrive.getPIDController().setP(SmartDashboard.getNumber("Drive_P", 0.0001));
+		ssDrive.getPIDController().setP(SmartDashboard.getNumber("Drive_P", 0.0005));
 		ssDrive.getPIDController().setI(SmartDashboard.getNumber("Drive_I", 0));
 		ssDrive.getPIDController().setD(SmartDashboard.getNumber("Drive_D", 0));
 		

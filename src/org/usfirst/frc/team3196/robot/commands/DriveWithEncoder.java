@@ -23,12 +23,14 @@ public class DriveWithEncoder extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.ssDrive.resetEncoders();
     	Robot.ssDrive.setSetpoint(encoderDist);
     	Robot.ssDrive.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	System.out.println(Robot.ssDrive.getPIDController().getError());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -38,6 +40,9 @@ public class DriveWithEncoder extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.print("Finished forward at ");
+    	System.out.println(Robot.ssDrive.getEncoderRight());
+    	
     	Robot.ssDrive.stopMotors();
     	Robot.ssDrive.disable();
     }
