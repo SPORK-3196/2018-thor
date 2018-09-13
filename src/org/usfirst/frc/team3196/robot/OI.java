@@ -7,8 +7,6 @@
 
 package org.usfirst.frc.team3196.robot;
 
-import org.usfirst.frc.team3196.robot.commands.IntakeIn;
-import org.usfirst.frc.team3196.robot.commands.IntakeOut;
 import org.usfirst.frc.team3196.robot.commands.ResetGyro;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -76,8 +74,6 @@ public class OI {
 	*/
 	
 	public OI() {
-		//jsMech_A.whileHeld(new IntakeIn());
-		//jsMech_B.whileHeld(new IntakeOut());
 		jsDrive_A.whileHeld(new ResetGyro());
 	}
 }

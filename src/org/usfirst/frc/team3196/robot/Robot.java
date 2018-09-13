@@ -64,10 +64,10 @@ public class Robot extends TimedRobot {
 		ssDrive.getPIDController().setI(SmartDashboard.getNumber("Drive_I", 0));
 		ssDrive.getPIDController().setD(SmartDashboard.getNumber("Drive_D", 0));
 		
-		/*SmartDashboard.putNumber("Drive_P", ssDrive.getPIDController().getP());
+		SmartDashboard.putNumber("Drive_P", ssDrive.getPIDController().getP());
 		SmartDashboard.putNumber("Drive_I", ssDrive.getPIDController().getI());
-		SmartDashboard.putNumber("Drive_D", ssDrive.getPIDController().getD());*/
-		//CameraServer.getInstance().startAutomaticCapture();
+		SmartDashboard.putNumber("Drive_D", ssDrive.getPIDController().getD());
+		CameraServer.getInstance().startAutomaticCapture();
 		//CameraServer.getInstance().addAxisCamera("http://axis-camera.local/mjpg/video.mjpg");
 	}
 
