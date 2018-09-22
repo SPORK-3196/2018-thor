@@ -6,12 +6,13 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
-public class Lift extends Subsystem {
+public class Lift extends PIDSubsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -22,8 +23,20 @@ public class Lift extends Subsystem {
 	
 	public double liftThrustLimit = 0.6;
 	
+	public int encoderOffset = 0;
+	
 	public int getEncoder() {
-		return liftLeft.getSelectedSensorPosition(0);
+		return liftLeft.getSelectedSensorPosition(0)-encoderOffset;
+	}
+	
+	public void resetEncoder() {
+		encoderOffset = liftLeft.getSelectedSensorPosition(0);
+	}
+	
+	public Lift(double P, double I, double D) {
+		super(P,I,D);
+		setOutputRange(-0.8, 0.8);
+		disable();
 	}
 
     public void initDefaultCommand() {
@@ -31,6 +44,14 @@ public class Lift extends Subsystem {
     	liftRight.setNeutralMode(NeutralMode.Brake);
     	
     	setDefaultCommand(new LiftWithJoystick());
+    }
+    
+    protected double returnPIDInput() {
+    	return getEncoder();
+    }
+    
+    protected void usePIDOutput(double output) {
+    	lift.set(output);
     }
 }
 

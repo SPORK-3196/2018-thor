@@ -19,7 +19,7 @@ public class Sensors extends Subsystem {
 	}
 	
 	public double readGyro() {
-		return gyro.getAngleZ();
+		return gyro.getAngleX();
 	}
 
     public void initDefaultCommand() {

@@ -15,7 +15,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team3196.robot.commands.BasicAuto;
+import org.usfirst.frc.team3196.robot.commands.LLAuto;
+import org.usfirst.frc.team3196.robot.commands.RRAuto;
 import org.usfirst.frc.team3196.robot.subsystems.Drive;
 import org.usfirst.frc.team3196.robot.subsystems.Intake;
 import org.usfirst.frc.team3196.robot.subsystems.Lift;
@@ -34,7 +35,7 @@ public class Robot extends TimedRobot {
 	public static Sensors ssSensors = new Sensors();
 	
 	public static Drive ssDrive = new Drive(1, 0, 0);
-	public static Lift ssLift = new Lift();
+	public static Lift ssLift = new Lift(0.01, 0, 0);
 	public static Intake ssIntake = new Intake();
 
 	public static XboxController jsDrive = new XboxController(0);
@@ -50,8 +51,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		//m_chooser.addDefault("Default Auto", new ExampleCommand());
-		m_chooser.addDefault("My Auto", new BasicAuto());
+
+		m_chooser.addDefault("Right", new RRAuto());
+		m_chooser.addDefault("Center", new RRAuto());
+		m_chooser.addDefault("Left", new LLAuto());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
 		ssSensors.resetGyro();
@@ -100,8 +103,12 @@ public class Robot extends TimedRobot {
     	Robot.ssSensors.resetGyro();
     	Robot.ssDrive.resetEncoders();
     	
+    	ssDrive.getPIDController().setP(SmartDashboard.getNumber("Drive_P", 0.0005));
+		ssDrive.getPIDController().setI(SmartDashboard.getNumber("Drive_I", 0));
+		ssDrive.getPIDController().setD(SmartDashboard.getNumber("Drive_D", 0));
+    	
 		//m_autonomousCommand = m_chooser.getSelected();
-		m_autonomousCommand = new BasicAuto();
+		m_autonomousCommand = new RRAuto();
 		
 		System.out.print("Starting auto with ");
 		System.out.print(ssDrive.getPIDController().getP());
@@ -133,6 +140,12 @@ public class Robot extends TimedRobot {
 		// Read drive encoders and print to dashboard
     	SmartDashboard.putNumber("Left Encoder", Robot.ssDrive.getEncoderLeft());
     	SmartDashboard.putNumber("Right Encoder", Robot.ssDrive.getEncoderRight());
+
+		// Read lift encoder and print to dashboard
+    	SmartDashboard.putNumber("Lift Encoder", Robot.ssLift.getEncoder());
+    	//System.out.println(Robot.ssLift.getEncoder());
+    	
+    	if(Robot.ssLift.liftLeft.getSensorCollection().isRevLimitSwitchClosed()) Robot.ssLift.resetEncoder();
 		
 		// Read Gyro and print to dashboard
     	SmartDashboard.putNumber("GyroX", Robot.ssSensors.gyro.getAngleX());
@@ -167,6 +180,9 @@ public class Robot extends TimedRobot {
 
 		// Read lift encoder and print to dashboard
     	SmartDashboard.putNumber("Lift Encoder", Robot.ssLift.getEncoder());
+    	//System.out.println(Robot.ssLift.getEncoder());
+    	
+    	if(Robot.ssLift.liftLeft.getSensorCollection().isRevLimitSwitchClosed()) Robot.ssLift.resetEncoder();
 		
 		// Read Gyro and print to dashboard
     	SmartDashboard.putNumber("GyroX", Robot.ssSensors.gyro.getAngleX());

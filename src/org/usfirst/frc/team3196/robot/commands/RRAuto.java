@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class BasicAuto extends CommandGroup {
+public class RRAuto extends CommandGroup {
 
-    public BasicAuto() {
+    public RRAuto() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -29,8 +29,10 @@ public class BasicAuto extends CommandGroup {
     	
     	//requires(Robot.ssDrive);
 
-    	addSequential(new DriveWithEncoder(5000));
-    	addSequential(new RotateWithGyro(90));
-    	addSequential(new DriveWithEncoder(2000));
+    	addSequential(new DriveWithEncoder(9500));
+    	addSequential(new RotateWithGyro(-85));
+    	addSequential(new LiftWithEncoder(3000));
+    	addSequential(new DriveWithEncoder(2000, 2));
+    	addSequential(new ShootBox());
     }
 }

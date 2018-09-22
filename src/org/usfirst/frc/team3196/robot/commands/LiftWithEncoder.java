@@ -7,42 +7,35 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RotateWithGyro extends Command {
-	
-	public int degSetpoint;
+public class LiftWithEncoder extends Command {
 
-    public RotateWithGyro(int degrees) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+	public int encoderDist;
+	
+    public LiftWithEncoder(int dist) {
+    	requires(Robot.ssLift);
     	
-    	requires(Robot.ssDrive);
-    	requires(Robot.ssSensors);
-    	
-    	degSetpoint = degrees;
+    	encoderDist = dist;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.ssSensors.resetGyro();
+    	Robot.ssLift.resetEncoder();
+    	Robot.ssLift.setSetpoint(encoderDist);
+    	Robot.ssLift.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double turn = 0;
-    	if(Robot.ssSensors.readGyro() > (degSetpoint + 1)) turn = -0.5;
-    	else if(Robot.ssSensors.readGyro() < (degSetpoint - 1)) turn = 0.5;
-    	
-    	Robot.ssDrive.drive.arcadeDrive(0, turn);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (Robot.ssSensors.readGyro() >= (degSetpoint - 1) && Robot.ssSensors.readGyro() <= (degSetpoint + 1));
+        return (Robot.ssLift.getEncoder() >= (encoderDist - 50) && Robot.ssLift.getEncoder() >= (encoderDist + 50));
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.ssDrive.stopMotors();
+    	Robot.ssLift.disable();
     }
 
     // Called when another command which requires one or more of the same

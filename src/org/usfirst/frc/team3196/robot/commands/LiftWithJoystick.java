@@ -33,7 +33,6 @@ public class LiftWithJoystick extends Command {
     	double liftSpeed = deadband((Robot.jsMech.getY(Hand.kLeft))*Robot.ssLift.liftThrustLimit);
     	
     	Robot.ssLift.lift.set(-liftSpeed);
-    	System.out.println(-liftSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
