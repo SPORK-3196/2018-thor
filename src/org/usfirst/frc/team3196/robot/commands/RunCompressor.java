@@ -2,38 +2,24 @@ package org.usfirst.frc.team3196.robot.commands;
 
 import org.usfirst.frc.team3196.robot.Robot;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LiftWithJoystick extends Command {
-	
-	public double deadband(double val) {
-		if(val >= -0.05 && val <= 0.05) return 0;
-		return val;
-	}
-	
-	public boolean isPressed(double val) {
-		return (val >= 0.05 || val <= -0.05);
-	}
+public class RunCompressor extends Command {
 
-    public LiftWithJoystick() {
-        requires(Robot.ssLift);
+    public RunCompressor() {
+    	requires(Robot.ssIntake);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+		//Robot.ssIntake.compressor.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double liftSpeed = deadband((Robot.jsMech.getY(Hand.kLeft))*Robot.ssLift.liftThrustLimit);
-    	
-    	Robot.ssLift.lift.set(-liftSpeed);
-    	System.out.println(-liftSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -43,6 +29,7 @@ public class LiftWithJoystick extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	//Robot.ssIntake.compressor.stop();
     }
 
     // Called when another command which requires one or more of the same

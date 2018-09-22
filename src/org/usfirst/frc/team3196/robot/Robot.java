@@ -8,7 +8,7 @@
 package org.usfirst.frc.team3196.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -16,9 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team3196.robot.commands.BasicAuto;
-import org.usfirst.frc.team3196.robot.commands.ExampleCommand;
 import org.usfirst.frc.team3196.robot.subsystems.Drive;
-import org.usfirst.frc.team3196.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team3196.robot.subsystems.Intake;
 import org.usfirst.frc.team3196.robot.subsystems.Lift;
 import org.usfirst.frc.team3196.robot.subsystems.Sensors;
@@ -31,7 +29,6 @@ import org.usfirst.frc.team3196.robot.subsystems.Sensors;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
 	public static OI m_oi;
 	
 	public static Sensors ssSensors = new Sensors();
@@ -40,8 +37,8 @@ public class Robot extends TimedRobot {
 	public static Lift ssLift = new Lift();
 	public static Intake ssIntake = new Intake();
 
-	public static Joystick jsDrive = new Joystick(0);
-	public static Joystick jsMech = new Joystick(1);
+	public static XboxController jsDrive = new XboxController(0);
+	public static XboxController jsMech = new XboxController(1);
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -163,10 +160,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
+
 		// Read drive encoders and print to dashboard
     	SmartDashboard.putNumber("Left Encoder", Robot.ssDrive.getEncoderLeft());
     	SmartDashboard.putNumber("Right Encoder", Robot.ssDrive.getEncoderRight());
+
+		// Read lift encoder and print to dashboard
+    	SmartDashboard.putNumber("Lift Encoder", Robot.ssLift.getEncoder());
 		
 		// Read Gyro and print to dashboard
     	SmartDashboard.putNumber("GyroX", Robot.ssSensors.gyro.getAngleX());

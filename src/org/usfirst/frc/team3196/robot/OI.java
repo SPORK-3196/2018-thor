@@ -8,6 +8,7 @@
 package org.usfirst.frc.team3196.robot;
 
 import org.usfirst.frc.team3196.robot.commands.ResetGyro;
+import org.usfirst.frc.team3196.robot.commands.RunCompressor;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -47,33 +48,9 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	
-	public Joystick jsDrive = new Joystick(0);
-	public Button jsDrive_A = new JoystickButton(jsDrive, 1);
-	public Button jsDrive_B = new JoystickButton(jsDrive, 2);
-	public Button jsDrive_X = new JoystickButton(jsDrive, 3);
-	public Button jsDrive_Y = new JoystickButton(jsDrive, 4);
-	public Button jsDrive_LB = new JoystickButton(jsDrive, 5);
-	public Button jsDrive_RB = new JoystickButton(jsDrive, 6);
-	public Button jsDrive_BACK = new JoystickButton(jsDrive, 7);
-	public Button jsDrive_START = new JoystickButton(jsDrive, 8);
-	public Button jsDrive_LC = new JoystickButton(jsDrive, 9);
-	public Button jsDrive_RC = new JoystickButton(jsDrive, 10);
-	
-	/*
-	public Joystick jsMech = new Joystick(1);
-	public Button jsMech_A = new JoystickButton(jsMech, 1);
-	public Button jsMech_B = new JoystickButton(jsMech, 2);
-	public Button jsMech_X = new JoystickButton(jsMech, 3);
-	public Button jsMech_Y = new JoystickButton(jsMech, 4);
-	public Button jsMech_LB = new JoystickButton(jsMech, 5);
-	public Button jsMech_RB = new JoystickButton(jsMech, 6);
-	public Button jsMech_BACK = new JoystickButton(jsMech, 7);
-	public Button jsMech_START = new JoystickButton(jsMech, 8);
-	public Button jsMech_LC = new JoystickButton(jsMech, 9);
-	public Button jsMech_RC = new JoystickButton(jsMech, 10);
-	*/
+	Button compressorButton = new JoystickButton(Robot.jsMech, 2);
 	
 	public OI() {
-		jsDrive_A.whileHeld(new ResetGyro());
+		compressorButton.whileHeld(new RunCompressor());
 	}
 }

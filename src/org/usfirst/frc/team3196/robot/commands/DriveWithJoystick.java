@@ -13,11 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveWithJoystick extends Command {
 	
-	public double deadband(double val) {
-		if(val <= 0.05 && val >= -0.05) return 0;
-		return val;
-	}
-	
     public DriveWithJoystick() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);

@@ -17,8 +17,6 @@ public class Drive extends PIDSubsystem {
 	// Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	public WPI_TalonSRX climber = new WPI_TalonSRX(8);
-	
 	public WPI_TalonSRX frontRight = new WPI_TalonSRX(4);
 	public WPI_TalonSRX rearRight = new WPI_TalonSRX(2);
 	public SpeedControllerGroup right = new SpeedControllerGroup(frontRight, rearRight);
@@ -29,8 +27,8 @@ public class Drive extends PIDSubsystem {
 	
 	public DifferentialDrive drive = new DifferentialDrive(left, right);
 
-	private double _encoderOffsetLeft = 0;
-	private double _encoderOffsetRight = 0;
+	private int _encoderOffsetLeft = 0;
+	private int _encoderOffsetRight = 0;
 	
 	public void stopMotors() {
 		frontRight.stopMotor();
@@ -45,11 +43,11 @@ public class Drive extends PIDSubsystem {
 		System.out.println("Encoders reset");
 	}
 	
-	public double getEncoderLeft() {
+	public int getEncoderLeft() {
 		return Robot.ssDrive.rearLeft.getSelectedSensorPosition(0)-_encoderOffsetLeft;
 	}
 	
-	public double getEncoderRight() {
+	public int getEncoderRight() {
 		return -(Robot.ssDrive.rearRight.getSelectedSensorPosition(0)+_encoderOffsetRight);
 	}
 	
