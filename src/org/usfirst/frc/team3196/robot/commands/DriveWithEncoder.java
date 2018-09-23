@@ -50,15 +50,15 @@ public class DriveWithEncoder extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(targetTime == -1) return (Robot.ssDrive.getEncoderRight() >= (encoderDist - 50) && Robot.ssDrive.getEncoderRight() >= (encoderDist + 50));
-    	else return (Robot.ssDrive.getEncoderRight() >= (encoderDist - 50) && Robot.ssDrive.getEncoderRight() >= (encoderDist + 50)) ||
+    	if(targetTime == -1) return (Robot.ssDrive.getEncoderLeft() >= (encoderDist - 50) && Robot.ssDrive.getEncoderLeft() >= (encoderDist + 50));
+    	else return (Robot.ssDrive.getEncoderLeft() >= (encoderDist - 50) && Robot.ssDrive.getEncoderLeft() >= (encoderDist + 50)) ||
     			(Timer.getFPGATimestamp() >= targetTime);
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	System.out.print("Finished forward at ");
-    	System.out.println(Robot.ssDrive.getEncoderRight());
+    	System.out.println(Robot.ssDrive.getEncoderLeft());
     	
     	Robot.ssDrive.stopMotors();
     	Robot.ssDrive.disable();

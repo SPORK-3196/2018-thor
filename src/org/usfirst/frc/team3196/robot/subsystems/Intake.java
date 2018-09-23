@@ -30,9 +30,9 @@ public class Intake extends Subsystem {
     public void initDefaultCommand() {
     	// Motor configurations
     	intakeMotorLeft.setInverted(true);
-    	intakeMotorLeft.configContinuousCurrentLimit(20, 50);
+    	intakeMotorLeft.configContinuousCurrentLimit(10, 50);
     	intakeMotorLeft.enableCurrentLimit(true);
-    	intakeMotorRight.configContinuousCurrentLimit(20, 50);
+    	intakeMotorRight.configContinuousCurrentLimit(10, 50);
     	intakeMotorRight.enableCurrentLimit(true);
     	
     	Robot.ssIntake.compressor.start();

@@ -72,15 +72,15 @@ public class Drive extends PIDSubsystem {
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
-        return getEncoderRight();
+        return getEncoderLeft();
     }
 
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
     	double turn = 0;
-    	//if(Robot.ssSensors.readGyro() > 1) turn = -0.3;
-    	//else if(Robot.ssSensors.readGyro() < -1) turn = 0.3;
+    	//if(Robot.ssSensors.readGyro() > 3) turn = -0.3;
+    	//else if(Robot.ssSensors.readGyro() < -3) turn = 0.3;
     	
     	drive.arcadeDrive(output, turn);
     }

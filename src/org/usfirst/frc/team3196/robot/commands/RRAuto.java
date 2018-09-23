@@ -29,10 +29,10 @@ public class RRAuto extends CommandGroup {
     	
     	//requires(Robot.ssDrive);
 
-    	addSequential(new DriveWithEncoder(9500));
-    	addSequential(new RotateWithGyro(-85));
-    	addSequential(new LiftWithEncoder(3000));
-    	addSequential(new DriveWithEncoder(2000, 2));
+    	addSequential(new DriveWithEncoder(8600));
+    	addSequential(new RotateWithGyro(-80));
+    	addSequential(new LiftWithEncoder(4000));
+    	addSequential(new DriveWithEncoder(2500, 2));
     	addSequential(new ShootBox());
     }
 }

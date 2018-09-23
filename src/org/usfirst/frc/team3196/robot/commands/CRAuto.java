@@ -1,15 +1,13 @@
 package org.usfirst.frc.team3196.robot.commands;
 
-import org.usfirst.frc.team3196.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class LLAuto extends CommandGroup {
+public class CRAuto extends CommandGroup {
 
-    public LLAuto() {
+    public CRAuto() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -27,12 +25,12 @@ public class LLAuto extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	//requires(Robot.ssDrive);
-
-    	addSequential(new DriveWithEncoder(8500));
+    	addSequential(new DriveWithEncoder(1000));
     	addSequential(new RotateWithGyro(80));
+    	addSequential(new DriveWithEncoder(3500));
+    	addSequential(new RotateWithGyro(-80));
     	addSequential(new LiftWithEncoder(4000));
-    	addSequential(new DriveWithEncoder(2500, 2));
+    	addSequential(new DriveWithEncoder(5000));
     	addSequential(new ShootBox());
     }
 }

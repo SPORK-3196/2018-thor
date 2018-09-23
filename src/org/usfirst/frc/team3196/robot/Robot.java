@@ -7,14 +7,20 @@
 
 package org.usfirst.frc.team3196.robot;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team3196.robot.commands.Baseline;
+import org.usfirst.frc.team3196.robot.commands.CLAuto;
+import org.usfirst.frc.team3196.robot.commands.CRAuto;
 import org.usfirst.frc.team3196.robot.commands.LLAuto;
 import org.usfirst.frc.team3196.robot.commands.RRAuto;
 import org.usfirst.frc.team3196.robot.subsystems.Drive;
@@ -41,8 +47,27 @@ public class Robot extends TimedRobot {
 	public static XboxController jsDrive = new XboxController(0);
 	public static XboxController jsMech = new XboxController(1);
 
-	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	Command auto;
+	SendableChooser<Character> sideChooser = new SendableChooser<>();
+	String gamedata;
+	
+	public CommandGroup chooseAuto(char side, String gd) {
+		char sw = gd.charAt(0);
+		if(gd.length() > 0) {
+			if(side == 'C') {
+				if(sw == 'L') { return new CLAuto(); }
+				else if(sw == 'R') { return new CRAuto(); }
+			} else if(side == 'L') {
+				if(sw == 'L') { return new LLAuto(); }
+				else { return new Baseline(); }
+			} else if(side == 'R') {
+				if(sw == 'R') { return new RRAuto(); }
+				else { return new Baseline(); }
+			}
+		}
+		
+		return new Baseline();
+	}
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -52,22 +77,22 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 
-		m_chooser.addDefault("Right", new RRAuto());
-		m_chooser.addDefault("Center", new RRAuto());
-		m_chooser.addDefault("Left", new LLAuto());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		sideChooser.addDefault("Right", 'R');
+		sideChooser.addObject("Center", 'C');
+		sideChooser.addObject("Left", 'L');
+		SmartDashboard.putData("Robot side", sideChooser);
 		
 		ssSensors.resetGyro();
 		ssDrive.resetEncoders();
 
-		ssDrive.getPIDController().setP(SmartDashboard.getNumber("Drive_P", 0.0005));
+		ssDrive.getPIDController().setP(SmartDashboard.getNumber("Drive_P", 0.001));
 		ssDrive.getPIDController().setI(SmartDashboard.getNumber("Drive_I", 0));
 		ssDrive.getPIDController().setD(SmartDashboard.getNumber("Drive_D", 0));
 		
 		SmartDashboard.putNumber("Drive_P", ssDrive.getPIDController().getP());
 		SmartDashboard.putNumber("Drive_I", ssDrive.getPIDController().getI());
 		SmartDashboard.putNumber("Drive_D", ssDrive.getPIDController().getD());
-		CameraServer.getInstance().startAutomaticCapture();
+		//CameraServer.getInstance().startAutomaticCapture();
 		//CameraServer.getInstance().addAxisCamera("http://axis-camera.local/mjpg/video.mjpg");
 	}
 
@@ -99,6 +124,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		gamedata = DriverStation.getInstance().getGameSpecificMessage();
+		auto = chooseAuto(sideChooser.getSelected(), gamedata);
+		
     	Robot.ssDrive.resetEncoders();
     	Robot.ssSensors.resetGyro();
     	Robot.ssDrive.resetEncoders();
@@ -108,7 +136,7 @@ public class Robot extends TimedRobot {
 		ssDrive.getPIDController().setD(SmartDashboard.getNumber("Drive_D", 0));
     	
 		//m_autonomousCommand = m_chooser.getSelected();
-		m_autonomousCommand = new RRAuto();
+		auto = new CRAuto();
 		
 		System.out.print("Starting auto with ");
 		System.out.print(ssDrive.getPIDController().getP());
@@ -125,8 +153,8 @@ public class Robot extends TimedRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
+		if (auto != null) {
+			auto.start();
 		}
 	}
 
@@ -159,9 +187,15 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
+		if (auto != null) {
+			auto.cancel();
 		}
+		
+		// Config camera
+		//UsbCamera cam = new UsbCamera("cam0", "/dev/video0");
+		//cam.setFPS(10);
+		//cam.setResolution(80, 60);
+		//CameraServer.getInstance().startAutomaticCapture(cam);
 		
 		ssDrive.resetEncoders();
 		ssDrive.disable();
