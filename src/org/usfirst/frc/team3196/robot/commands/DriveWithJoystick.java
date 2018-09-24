@@ -28,7 +28,7 @@ public class DriveWithJoystick extends Command {
     protected void execute() {
     	// Input from joysticks and output to motors
 		double driveSpeed = -Robot.jsDrive.getY(Hand.kLeft)*1;
-		double driveRot = Robot.jsDrive.getX(Hand.kLeft)*0.7;
+		double driveRot = Robot.jsDrive.getX(Hand.kLeft)*0.9;
     	Robot.ssDrive.drive.arcadeDrive(driveSpeed, driveRot);
     }
 

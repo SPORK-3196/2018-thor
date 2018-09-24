@@ -25,12 +25,13 @@ public class CLAuto extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new DriveWithEncoder(1000));
+    	addSequential(new DriveWithEncoder(2000));
     	addSequential(new RotateWithGyro(-80));
     	addSequential(new DriveWithEncoder(3500));
     	addSequential(new RotateWithGyro(80));
+    	addSequential(new DriveWithEncoder(3000));
     	addSequential(new LiftWithEncoder(4000));
-    	addSequential(new DriveWithEncoder(5000));
+    	addSequential(new DriveWithEncoder(1000));
     	addSequential(new ShootBox());
     }
 }

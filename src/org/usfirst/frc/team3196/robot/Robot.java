@@ -48,21 +48,44 @@ public class Robot extends TimedRobot {
 	public static XboxController jsMech = new XboxController(1);
 
 	Command auto;
-	SendableChooser<Character> sideChooser = new SendableChooser<>();
+	String side;
 	String gamedata;
 	
 	public CommandGroup chooseAuto(char side, String gd) {
+		if(side == 'B') {
+			System.out.println("BBaseline");
+			return new Baseline();
+		}
+		
 		char sw = gd.charAt(0);
 		if(gd.length() > 0) {
 			if(side == 'C') {
-				if(sw == 'L') { return new CLAuto(); }
-				else if(sw == 'R') { return new CRAuto(); }
+				if(sw == 'L') {
+					System.out.println("CLAuto");
+					return new CLAuto();
+				}
+				else if(sw == 'R') {
+					System.out.println("CRAuto");
+					return new CRAuto();
+				}
 			} else if(side == 'L') {
-				if(sw == 'L') { return new LLAuto(); }
-				else { return new Baseline(); }
+				if(sw == 'L') {
+					System.out.println("LLAuto");
+					return new LLAuto();
+				}
+				else {
+					System.out.println("LBaseline");
+					return new Baseline();
+				}
 			} else if(side == 'R') {
-				if(sw == 'R') { return new RRAuto(); }
-				else { return new Baseline(); }
+				if(sw == 'R') {
+					System.out.println("RRAuto");
+					return new RRAuto();
+				}
+				else {
+					System.out.println("RBaseline");
+					return new Baseline();
+				}
 			}
 		}
 		
@@ -77,10 +100,8 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 
-		sideChooser.addDefault("Right", 'R');
-		sideChooser.addObject("Center", 'C');
-		sideChooser.addObject("Left", 'L');
-		SmartDashboard.putData("Robot side", sideChooser);
+		side = "L";
+		SmartDashboard.putString("Side", side);
 		
 		ssSensors.resetGyro();
 		ssDrive.resetEncoders();
@@ -125,18 +146,18 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		gamedata = DriverStation.getInstance().getGameSpecificMessage();
-		auto = chooseAuto(sideChooser.getSelected(), gamedata);
+		side = SmartDashboard.getString("Side", "B");
+		auto = chooseAuto(side.charAt(0), gamedata);
 		
     	Robot.ssDrive.resetEncoders();
     	Robot.ssSensors.resetGyro();
     	Robot.ssDrive.resetEncoders();
     	
-    	ssDrive.getPIDController().setP(SmartDashboard.getNumber("Drive_P", 0.0005));
+    	ssDrive.getPIDController().setP(SmartDashboard.getNumber("Drive_P", 0.0008));
 		ssDrive.getPIDController().setI(SmartDashboard.getNumber("Drive_I", 0));
 		ssDrive.getPIDController().setD(SmartDashboard.getNumber("Drive_D", 0));
     	
 		//m_autonomousCommand = m_chooser.getSelected();
-		auto = new CRAuto();
 		
 		System.out.print("Starting auto with ");
 		System.out.print(ssDrive.getPIDController().getP());

@@ -38,6 +38,14 @@ public class IntakeWithTriggers extends Command {
     	Robot.ssIntake.intake.set(intakeSpeed*Robot.ssIntake.intakeThrustLimiter);
     	
     	Robot.ssIntake.solenoidSqueeze.set(Robot.jsMech.getAButton());
+    	
+    	if (Robot.ssLift.getEncoder() > 15000) {
+    		Robot.ssIntake.intakeMotorLeft.configContinuousCurrentLimit(20, 50);
+    		Robot.ssIntake.intakeMotorLeft.configContinuousCurrentLimit(20, 50);
+    	} else {
+    		Robot.ssIntake.intakeMotorLeft.configContinuousCurrentLimit(10, 50);
+    		Robot.ssIntake.intakeMotorLeft.configContinuousCurrentLimit(10, 50);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
