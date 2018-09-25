@@ -152,6 +152,7 @@ public class Robot extends TimedRobot {
     	Robot.ssDrive.resetEncoders();
     	Robot.ssSensors.resetGyro();
     	Robot.ssDrive.resetEncoders();
+    	Robot.ssSensors.resetGyro();
     	
     	ssDrive.getPIDController().setP(SmartDashboard.getNumber("Drive_P", 0.0008));
 		ssDrive.getPIDController().setI(SmartDashboard.getNumber("Drive_I", 0));
@@ -218,8 +219,11 @@ public class Robot extends TimedRobot {
 		//cam.setResolution(80, 60);
 		//CameraServer.getInstance().startAutomaticCapture(cam);
 		
+		ssLift.getPIDController().setP(0.0001);
+		
 		ssDrive.resetEncoders();
 		ssDrive.disable();
+		ssSensors.resetGyro();
 	}
 
 	/**

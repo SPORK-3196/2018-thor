@@ -24,13 +24,14 @@ public class RotateWithGyro extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.ssSensors.resetGyro();
+    	Robot.ssSensors.resetGyro();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double turn = 0;
-    	if(Robot.ssSensors.readGyro() > (degSetpoint + 1)) turn = -0.5;
-    	else if(Robot.ssSensors.readGyro() < (degSetpoint - 1)) turn = 0.5;
+    	if(Robot.ssSensors.readGyro() > (degSetpoint + 1)) turn = -0.55;
+    	else if(Robot.ssSensors.readGyro() < (degSetpoint - 1)) turn = 0.55;
     	
     	Robot.ssDrive.drive.arcadeDrive(0, turn);
     }

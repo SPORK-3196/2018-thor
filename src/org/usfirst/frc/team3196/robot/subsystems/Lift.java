@@ -21,7 +21,7 @@ public class Lift extends PIDSubsystem {
 	public WPI_TalonSRX liftRight = new WPI_TalonSRX(8);	// Frontmost lift motor
 	public SpeedControllerGroup lift = new SpeedControllerGroup(liftLeft, liftRight);
 	
-	public double liftThrustLimit = 0.6;
+	public double liftThrustLimit = 1;
 	
 	public int encoderOffset = 0;
 	

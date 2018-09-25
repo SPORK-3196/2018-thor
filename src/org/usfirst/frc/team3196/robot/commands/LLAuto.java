@@ -29,7 +29,7 @@ public class LLAuto extends CommandGroup {
     	
     	//requires(Robot.ssDrive);
 
-    	addSequential(new DriveWithEncoder(10200));
+    	addSequential(new DriveWithEncoder(10800));
     	addSequential(new RotateWithGyro(80));
     	addSequential(new LiftWithEncoder(4000));
     	addSequential(new DriveWithEncoder(1500, 2));

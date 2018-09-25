@@ -19,6 +19,7 @@ public class LiftWithEncoder extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.ssLift.getPIDController().setP(0.01);
     	Robot.ssLift.resetEncoder();
     	Robot.ssLift.setSetpoint(encoderDist);
     	Robot.ssLift.enable();
@@ -35,7 +36,7 @@ public class LiftWithEncoder extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.ssLift.disable();
+    	Robot.ssLift.getPIDController().setP(0.0001);
     }
 
     // Called when another command which requires one or more of the same
