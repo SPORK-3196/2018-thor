@@ -27,7 +27,7 @@ public class LiftWithJoystick extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	liftPos = 0;
+    	liftPos = Robot.ssLift.getEncoder();
     }
 
     // Called repeatedly when this Command is scheduled to run

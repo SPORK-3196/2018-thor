@@ -58,7 +58,7 @@ public class Drive extends PIDSubsystem {
         //                  to
         // enable() - Enables the PID controller.
     	super(P,I,D);
-    	setOutputRange(-0.7, 0.7);
+    	setOutputRange(-0.75, 0.75);
     	disable();
     }
 
@@ -79,8 +79,8 @@ public class Drive extends PIDSubsystem {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
     	double turn = 0;
-    	//if(Robot.ssSensors.readGyro() > 3) turn = -0.3;
-    	//else if(Robot.ssSensors.readGyro() < -3) turn = 0.3;
+    	if(Robot.ssSensors.readGyro() > 3) turn = -0.3;
+    	else if(Robot.ssSensors.readGyro() < -3) turn = 0.3;
     	
     	drive.arcadeDrive(output, turn);
     }

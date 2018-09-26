@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3196.robot.commands.Baseline;
 import org.usfirst.frc.team3196.robot.commands.CLAuto;
 import org.usfirst.frc.team3196.robot.commands.CRAuto;
+import org.usfirst.frc.team3196.robot.commands.CScAuto;
 import org.usfirst.frc.team3196.robot.commands.LLAuto;
 import org.usfirst.frc.team3196.robot.commands.RRAuto;
 import org.usfirst.frc.team3196.robot.subsystems.Drive;
@@ -158,7 +159,11 @@ public class Robot extends TimedRobot {
 		ssDrive.getPIDController().setI(SmartDashboard.getNumber("Drive_I", 0));
 		ssDrive.getPIDController().setD(SmartDashboard.getNumber("Drive_D", 0));
     	
-		//m_autonomousCommand = m_chooser.getSelected();
+		ssLift.getPIDController().setP(0.0001);
+		ssLift.setSetpoint(0.0);
+		ssLift.disable();
+		
+		//auto = new CScAuto();
 		
 		System.out.print("Starting auto with ");
 		System.out.print(ssDrive.getPIDController().getP());
