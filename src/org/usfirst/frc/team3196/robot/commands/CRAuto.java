@@ -27,9 +27,9 @@ public class CRAuto extends CommandGroup {
     	
     	addSequential(new DriveWithEncoder(2000));
     	addSequential(new RotateWithGyro(80));
-    	addSequential(new DriveWithEncoder(4000));
-    	addSequential(new RotateWithGyro(-80));
-    	addSequential(new LiftWithEncoder(4500));
+    	addSequential(new DriveWithEncoder(4300));
+    	addSequential(new RotateWithGyro(-90));
+    	addSequential(new LiftWithEncoder(5500));
     	addSequential(new DriveWithEncoder(5000));
     	addSequential(new ShootBox());
     }

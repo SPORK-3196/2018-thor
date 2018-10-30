@@ -31,7 +31,7 @@ public class RRAuto extends CommandGroup {
 
     	addSequential(new DriveWithEncoder(10800));
     	addSequential(new RotateWithGyro(-80));
-    	addSequential(new LiftWithEncoder(4000));
+    	addSequential(new LiftWithEncoder(5500));
     	addSequential(new DriveWithEncoder(1500, 2));
     	addSequential(new ShootBox());
     }

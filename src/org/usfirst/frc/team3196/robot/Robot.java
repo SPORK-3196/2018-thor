@@ -8,6 +8,7 @@
 package org.usfirst.frc.team3196.robot;
 
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
@@ -23,7 +24,9 @@ import org.usfirst.frc.team3196.robot.commands.CLAuto;
 import org.usfirst.frc.team3196.robot.commands.CRAuto;
 import org.usfirst.frc.team3196.robot.commands.CScAuto;
 import org.usfirst.frc.team3196.robot.commands.LLAuto;
+import org.usfirst.frc.team3196.robot.commands.LScAuto;
 import org.usfirst.frc.team3196.robot.commands.RRAuto;
+import org.usfirst.frc.team3196.robot.commands.RScAuto;
 import org.usfirst.frc.team3196.robot.subsystems.Drive;
 import org.usfirst.frc.team3196.robot.subsystems.Intake;
 import org.usfirst.frc.team3196.robot.subsystems.Lift;
@@ -59,6 +62,7 @@ public class Robot extends TimedRobot {
 		}
 		
 		char sw = gd.charAt(0);
+		char sc = gd.charAt(1);
 		if(gd.length() > 0) {
 			if(side == 'C') {
 				if(sw == 'L') {
@@ -73,6 +77,9 @@ public class Robot extends TimedRobot {
 				if(sw == 'L') {
 					System.out.println("LLAuto");
 					return new LLAuto();
+				} else if(sc == 'L') {
+					System.out.println("LScAuto");
+					return new LScAuto();
 				}
 				else {
 					System.out.println("LBaseline");
@@ -82,6 +89,9 @@ public class Robot extends TimedRobot {
 				if(sw == 'R') {
 					System.out.println("RRAuto");
 					return new RRAuto();
+				} else if(sc == 'R') {
+					System.out.println("RScAuto");
+					return new RScAuto();
 				}
 				else {
 					System.out.println("RBaseline");
@@ -114,7 +124,10 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Drive_P", ssDrive.getPIDController().getP());
 		SmartDashboard.putNumber("Drive_I", ssDrive.getPIDController().getI());
 		SmartDashboard.putNumber("Drive_D", ssDrive.getPIDController().getD());
-		//CameraServer.getInstance().startAutomaticCapture();
+		
+		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
+		cam.setResolution(160, 120);
+		cam.setFPS(10);
 		//CameraServer.getInstance().addAxisCamera("http://axis-camera.local/mjpg/video.mjpg");
 	}
 
